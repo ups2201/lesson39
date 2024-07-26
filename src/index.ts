@@ -1,4 +1,6 @@
 import {Route, Routers} from "./Routers";
+import {RoutersHistory} from "./RoutersHistory";
+import {RoutersHash} from "./RoutersHash";
 
 const render = (content) =>
     (document.getElementById("root").innerHTML = `<h2>${content}</h2>`);
@@ -12,7 +14,8 @@ const createLogger =
             }
         };
 
-const routers = new Routers();
+// const routers = new RoutersHistory();
+const routers = new RoutersHash();
 
 const route1:Route = {
     match: (path) => path === "/contacts",
