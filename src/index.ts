@@ -13,41 +13,74 @@ const createLogger =
             }
         };
 
-// const routers = new RouterFactory().create(RouterMode.HISTORY_API);
+const routers = new RouterFactory().create(RouterMode.HISTORY_API);
+
+const route1:Route = {
+    match: (path) => path === "/contacts",
+    onBeforeEnter: createLogger("[before] /contacts", false),
+    onEnter: createLogger("/contacts"),
+    onLeave: createLogger("[leaving] /contacts", false),
+};
+routers.addRoute(route1)
+
+const route2:Route = {
+    match: "/about",
+    onEnter: createLogger("/about"),
+};
+routers.addRoute(route2)
+
+const route3:Route = {
+    match: "/about/us",
+    onEnter: createLogger("/about/us"),
+};
+routers.addRoute(route3)
+
+const route5:Route = {
+    match: "/",
+    onEnter: createLogger("/"),
+};
+routers.addRoute(route5)
+
+const route4:Route = {
+    match: /.*/,
+    onEnter: createLogger("/.*"),
+};
+const unsubscribe = routers.addRoute(route4);
+
+// const routers = new RouterFactory().create(RouterMode.HASH_API);
 //
 // const route1:Route = {
-//     match: (path) => path === "/contacts",
-//     onBeforeEnter: createLogger("[before] /contacts", false),
-//     onEnter: createLogger("/contacts"),
-//     onLeave: createLogger("[leaving] /contacts", false),
+//     match: (path) => path === "#/contacts",
+//     onBeforeEnter: createLogger("[before] #/contacts", false),
+//     onEnter: createLogger("#/contacts"),
+//     onLeave: createLogger("[leaving] #/contacts", false),
 // };
 // routers.addRoute(route1)
 //
 // const route2:Route = {
-//     match: "/about",
-//     onEnter: createLogger("/about"),
+//     match: "#/about",
+//     onEnter: createLogger("#/about"),
 // };
 // routers.addRoute(route2)
 //
 // const route3:Route = {
-//     match: "/about/us",
-//     onEnter: createLogger("/about/us"),
+//     match: "#/about/us",
+//     onEnter: createLogger("#/about/us"),
 // };
 // routers.addRoute(route3)
 //
 // const route5:Route = {
-//     match: "/",
-//     onEnter: createLogger("/"),
+//     match: "#/",
+//     onEnter: createLogger("#/"),
 // };
 // routers.addRoute(route5)
 //
 // const route4:Route = {
 //     match: /.*/,
-//     onEnter: createLogger("/.*"),
+//     onEnter: createLogger("#/"),
 // };
+//
 // const unsubscribe = routers.addRoute(route4);
-
-const routers = new RouterFactory().create(RouterMode.HASH_API);
 
 document.body.addEventListener("click", (event) => {
     if (!(event.target as HTMLElement).matches("a")) {
@@ -58,37 +91,3 @@ document.body.addEventListener("click", (event) => {
     routers.go(url, { url });
     unsubscribe();
 });
-
-
-const route1:Route = {
-    match: (path) => path === "#/contacts",
-    onBeforeEnter: createLogger("[before] #/contacts", false),
-    onEnter: createLogger("#/contacts"),
-    onLeave: createLogger("[leaving] #/contacts", false),
-};
-routers.addRoute(route1)
-
-const route2:Route = {
-    match: "#/about",
-    onEnter: createLogger("#/about"),
-};
-routers.addRoute(route2)
-
-const route3:Route = {
-    match: "#/about/us",
-    onEnter: createLogger("#/about/us"),
-};
-routers.addRoute(route3)
-
-const route5:Route = {
-    match: "#/",
-    onEnter: createLogger("#/"),
-};
-routers.addRoute(route5)
-
-const route4:Route = {
-    match: /.*/,
-    onEnter: createLogger("#/"),
-};
-
-const unsubscribe = routers.addRoute(route4);

@@ -1,8 +1,8 @@
 export type Route = {
     match: string | RegExp | Function;
-    onEnter(any): any;
-    onLeave?(any): any;
-    onBeforeEnter?(any): any;
+    onEnter(any): Promise<void> | void;
+    onLeave?(any): Promise<void> | void;
+    onBeforeEnter?(any): Promise<void> | void;
     id?: number;
 }
 
