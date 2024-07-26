@@ -1,11 +1,6 @@
 import {RouterHash} from "./RouterHash";
 import {RouterHistory} from "./RouterHistory";
 
-export type State = {
-    path: string;
-    state: any;
-}
-
 export enum RouterMode {
     HASH_API,
     HISTORY_API,

@@ -1,11 +1,14 @@
-import {State} from "./RouterFactory";
-
 export type Route = {
     match: string | RegExp | Function;
     onEnter(any): any;
     onLeave?(any): any;
     onBeforeEnter?(any): any;
     id?: number;
+}
+
+export type State = {
+    path: string;
+    state: any;
 }
 
 export interface IRouters {
