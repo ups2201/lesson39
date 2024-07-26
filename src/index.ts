@@ -1,6 +1,5 @@
-import {Route, Routers} from "./Routers";
-import {RoutersHistory} from "./RoutersHistory";
-import {RoutersHash} from "./RoutersHash";
+import {Route} from "./Routers";
+import {Router2, RouterMode} from "./Router2";
 
 const render = (content) =>
     (document.getElementById("root").innerHTML = `<h2>${content}</h2>`);
@@ -14,8 +13,7 @@ const createLogger =
             }
         };
 
-// const routers = new RoutersHistory();
-const routers = new RoutersHash();
+const routers = new Router2(RouterMode.HISTORY_API).get();
 
 const route1:Route = {
     match: (path) => path === "/contacts",
@@ -48,7 +46,10 @@ const route4:Route = {
     onEnter: createLogger("/.*"),
 };
 const unsubscribe = routers.addRoute(route4);
-
+//
+// const routers = new RoutersHash();
+// const routers = new Router2(RouterMode.HASH_API).get();
+//
 document.body.addEventListener("click", (event) => {
     if (!(event.target as HTMLElement).matches("a")) {
         return;
@@ -58,3 +59,36 @@ document.body.addEventListener("click", (event) => {
     routers.go(url, { url });
     unsubscribe();
 });
+//
+// const route1:Route = {
+//     match: (path) => path === "#/contacts",
+//     onBeforeEnter: createLogger("[before] #/contacts", false),
+//     onEnter: createLogger("#/contacts"),
+//     onLeave: createLogger("[leaving] #/contacts", false),
+// };
+// routers.addRoute(route1)
+//
+// const route2:Route = {
+//     match: "#/about",
+//     onEnter: createLogger("#/about"),
+// };
+// routers.addRoute(route2)
+//
+// const route3:Route = {
+//     match: "#/about/us",
+//     onEnter: createLogger("#/about/us"),
+// };
+// routers.addRoute(route3)
+//
+// const route5:Route = {
+//     match: "#/",
+//     onEnter: createLogger("#/"),
+// };
+// routers.addRoute(route5)
+//
+// const route4:Route = {
+//     match: /.*/,
+//     onEnter: createLogger("#/"),
+// };
+//
+// const unsubscribe = routers.addRoute(route4);

@@ -12,7 +12,7 @@ export class RoutersHash extends RoutersGeneral {
         this.previous.path = this.currentPath;
         this.previous.state = this.state;
         location.hash = url;
-        this.currentPath = location.pathname;
+        this.currentPath = location.hash;
         this.state = state;
         this.handleAllListeners();
     };
