@@ -1,6 +1,6 @@
-import {RoutersGeneral} from "./RoutersGeneral";
+import {RouterParent} from "./RouterParent";
 
-export class RoutersHash extends RoutersGeneral {
+export class RouterHash extends RouterParent {
 
     constructor() {
         super();

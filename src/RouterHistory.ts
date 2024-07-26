@@ -1,6 +1,6 @@
-import {RoutersGeneral} from "./RoutersGeneral";
+import {RouterParent} from "./RouterParent";
 
-export class RoutersHistory extends RoutersGeneral {
+export class RouterHistory extends RouterParent {
 
     constructor() {
         super();
@@ -12,9 +12,7 @@ export class RoutersHistory extends RoutersGeneral {
         this.previous.path = this.currentPath;
         this.previous.state = history.state;
         history.pushState(state, url, url);
-
         this.currentPath = location.pathname;
-
         this.handleAllListeners();
     };
 
