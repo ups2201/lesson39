@@ -34,6 +34,12 @@ const route3:Route = {
 };
 routers.addRoute(route3)
 
+const route5:Route = {
+    match: "/",
+    onEnter: createLogger("/"),
+};
+routers.addRoute(route5)
+
 const route4:Route = {
     match: /.*/,
     onEnter: createLogger("/.*"),

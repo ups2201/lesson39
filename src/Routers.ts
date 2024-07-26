@@ -1,4 +1,4 @@
-export interface Route {
+export type Route = {
     match: string | RegExp | Function;
     onEnter(any): any;
     onLeave?(any): any;
@@ -6,9 +6,8 @@ export interface Route {
     id?: number;
 }
 
-type State = {
+export type State = {
     path: string;
-    previous: any;
     state: any;
 }
 
@@ -17,18 +16,13 @@ export class Routers {
     currentPath: string = window.location.pathname;
     previous: State = {
         path: "",
-        previous: undefined,
         state: undefined
     };
     routers: Route[] = [];
 
     constructor() {
-        console.log(this.currentPath);
-        console.log(this.previous);
-        console.log("constructor");
         window.addEventListener("popstate", this.handleAllListeners.bind(this));
         this.handleAllListeners();
-        console.log("constructor");
     }
 
     addRoute(route: Route) {
@@ -42,7 +36,6 @@ export class Routers {
     }
 
     go(url, state): void {
-        console.log("go");
         this.previous.path = this.currentPath;
         this.previous.state = history.state;
         history.pushState(state, url, url);
@@ -53,9 +46,8 @@ export class Routers {
     };
 
     handleAllListeners() {
-        console.log("handleAllListeners");
         this.routers.forEach((route) => {
-            const args: State = {path: this.currentPath, previous: this.previous, state: history.state};
+            const args = {url: this.currentPath, state: history.state, previous: this.previous};
 
             route.onBeforeEnter && this.isMatch(route.match, this.currentPath) && route.onBeforeEnter(args);
             this.isMatch(route.match, this.currentPath) && route.onEnter(args);
@@ -75,7 +67,6 @@ export class Routers {
     };
 
     isMatch(match: string | Function | RegExp, path: string): boolean {
-        console.log("isMatch");
         if (match instanceof RegExp) {
             return match.test(path);
         }
